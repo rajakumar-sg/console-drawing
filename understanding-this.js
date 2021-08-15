@@ -1,23 +1,28 @@
-function One() {
-  this.value = "one";
-  this.two = new Two();
-  this.print = () => {
-    console.log(this.value);
-    this.two.print(this.nestedPrint);
-  };
+class One {
+  constructor() {
+    this.value = "One";
+  }
 
-  this.nestedPrint = () => {
-    console.log('Nested print: ' + this.value);
+  print() {
+    printValue('One');
   }
 }
 
-function Two() {
-  this.value = "two";
-  this.print = (p) => {
-    console.log(this.value);
-    p();
+class Two {
+  constructor() {
+    this.value = "Two";
   }
+
+  print() {
+    printValue('Two');
+  }
+}
+
+function printValue(source) {
+  console.log('Call from ' + source + ' - ' + this.value);
 }
 
 const one = new One();
+const two = new Two();
 one.print();
+two.print();
