@@ -1,28 +1,38 @@
-class One {
-  constructor() {
-    this.value = "One";
-  }
+function ThisObject() {
+  console.log('First', this);
 
-  print() {
-    printValue('One');
-  }
+  const obj1 = {
+    f1: function printValue(source) {
+      console.log("f1", this);
+    },
+
+    f2: () => {
+      console.log("f2", this);
+    },
+
+    obj1: "obj1",
+  };
+
+  const obj2 = {
+    f3: (f) => {
+      console.log("f3", this);
+      f();
+    },
+
+    f4: function (f) {
+      console.log("f4", this);
+      f();
+    },
+  };
+
+  obj1.f1();
+  //obj1.f2();
+
+  //obj2.f3(obj1.f1);
+  //obj2.f3(obj1.f2);
+
+  obj2.f4(obj1.f1);
+  //obj2.f4(obj1.f2);
 }
 
-class Two {
-  constructor() {
-    this.value = "Two";
-  }
-
-  print() {
-    printValue('Two');
-  }
-}
-
-function printValue(source) {
-  console.log('Call from ' + source + ' - ' + this.value);
-}
-
-const one = new One();
-const two = new Two();
-one.print();
-two.print();
+new ThisObject();
